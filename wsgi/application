@@ -12,5 +12,5 @@ except IOError:
 # line, it's possible required libraries won't be in your searchable path
 # 
 
-from downtown.app import app as application
-#db.create_all()
+from downtown.app import app, db as application
+db.create_all()

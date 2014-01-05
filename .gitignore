@@ -1,3 +1,4 @@
 /wsgi/downtown/runlocal.py
 *.pyc
 *.pyo
+*.db

@@ -10,4 +10,8 @@ import os
 # Get the current working directory to place sched.db during development.
 # In production, use absolute paths or a database management system.
 PWD = os.path.abspath(os.curdir)
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+
 DEBUG = True
