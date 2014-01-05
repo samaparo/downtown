@@ -1,2 +1,1 @@
-*.pyc
-*.pyo
+/wsgi/downtown/runlocal.py
