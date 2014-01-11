@@ -35,6 +35,9 @@ class Subscription(Base):
 		self.SubID = SubID
 		self.PendingUpdates = 0
 	
+	def toJObject(self):
+		return {"ID":str(self.ID), "SubID":str(self.SubID), "PendingUpdates":str(self.PendingUpdates)}
+	
 	@staticmethod
 	def isValidJSON(jObject):
 		return jObject and 'subscription_id' in jObject

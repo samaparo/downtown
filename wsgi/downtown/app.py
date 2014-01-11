@@ -45,7 +45,26 @@ def updateSubscriptionCount():
 					newSub = Subscription(subscriptionID)
 					db.session.add(newSub)
 					db.session.commit()
-	return jsonify({"one":''})
+	return jsonify({"RESPONSE":"Success!"})
+
+@app.route('/api/subscriptions/<int:subID>', methods=['GET'])
+def getSubscription(subID):
+	matchingSub = db.session.query(Subscription).get(subID)
+	if(not(matchingSub is None)):
+		return jsonify(matchingSub.toJObject())
+	else:
+		abort(404)
+
+@app.route('/api/subscriptions/<int:subID>', methods=['DELETE'])
+def deleteSubscription(subID):
+	matchingSub = db.session.query(Subscription).get(subID)
+	if(not(matchingSub is None)):
+		db.session.delete(matchingSub)
+		db.session.commit()
+		return jsonify({"RESPONSE":"Success!"})
+	else:
+		abort(404)
+	
 
 @app.route('/api/fetch/', methods=['GET'])
 def fetchImages(): 
