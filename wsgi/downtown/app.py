@@ -5,9 +5,10 @@ from flask import abort, jsonify, redirect, render_template, request, url_for , 
 from flask.ext.login import LoginManager, current_user
 from flask.ext.login import login_user, login_required, logout_user
 from flask.ext.sqlalchemy import SQLAlchemy
-from models import Base, InstaImage
+from models import Base, InstaImage, Subscription
 from datetime import date, datetime
-
+import requests
+import json
 import config
 
 app = Flask(__name__)
@@ -20,10 +21,46 @@ db.Model = Base
 def renderIndex(): 
 	return render_template('index.html')
 
-@app.route('/fetch/', methods=['GET'])
+@app.route('/api/subscriptions/', methods=['GET'])
+def returnSecretCode():
+	secretCodeArg = 'hub.challenge'
+	if not(secretCodeArg in request.args):
+		abort(400)
+	else:
+		secretCodeString = str(request.args[secretCodeArg])
+		return secretCodeString
+
+@app.route('/api/subscriptions/', methods=['POST'])
+def updateSubscriptionCount():
+	jsonData = request.get_json(force=True)
+	if(len(jsonData) > 0):
+		for update in jsonData:
+			if(Subscription.isValidJSON(update)):
+				subscriptionID = int(update['subscription_id'])
+				matchingSub = db.session.query(Subscription).get(subscriptionID)
+				if(not(matchingSub is None)):
+					matchingSub.PendingUpdates += 1
+					db.session.commit()
+				else:
+					newSub = Subscription(subscriptionID)
+					db.session.add(newSub)
+					db.session.commit()
+	return jsonify({"one":''})
+
+@app.route('/api/fetch/', methods=['GET'])
 def fetchImages(): 
-	newDate = (datetime.strptime('10/09/1988','%m/%d/%Y'))
-	newImage = InstaImage(33333, newDate, "", "", "", "", 666)
-	db.session.add(newImage)
-	db.session.commit()
-	return str(newImage.ID)
+	#CLIENT ID	edd27e4ca4d440949716ff2938980a79
+	#CLIENT SECRET	bcd2a564ee574cdc8f2fb6fe31ab8b34
+	clientID = 'edd27e4ca4d440949716ff2938980a79'
+	latitude = 30.693365
+	longitude = -88.045399
+	maxTime = 1389405600 
+	minTime = 1389398400
+	newRequest = requests.get('https://api.instagram.com/v1/media/search?lat='+str(latitude)+'&lng='+str(longitude)+'&client_id='+clientID+'&min_timestamp='+str(minTime)+'&max_timestamp='+str(maxTime))
+	requestData = json.loads(newRequest.text)
+	
+	#newDate = (datetime.strptime('10/09/1988','%m/%d/%Y'))
+	#newImage = InstaImage(33333, newDate, "", "", "", "", 666)
+	#db.session.add(newImage)
+	#db.session.commit()
+	return jsonify(requestData)

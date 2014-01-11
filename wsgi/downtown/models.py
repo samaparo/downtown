@@ -24,3 +24,17 @@ class InstaImage(Base):
 		self.imageURL = imageURL
 		self.thumbnailURL = thumbnailURL
 		self.creatorID = creatorID
+
+class Subscription(Base):
+	__tablename__ = 'Subscription'
+	ID = Column(Integer, primary_key = True)
+	SubID = Column(Integer)
+	PendingUpdates = Column(Integer)
+	
+	def __init__(self, SubID):
+		self.SubID = SubID
+		self.PendingUpdates = 0
+	
+	@staticmethod
+	def isValidJSON(jObject):
+		return jObject and 'subscription_id' in jObject
