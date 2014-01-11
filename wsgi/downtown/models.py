@@ -33,7 +33,7 @@ class Subscription(Base):
 	
 	def __init__(self, SubID):
 		self.SubID = SubID
-		self.PendingUpdates = 0
+		self.PendingUpdates = 1
 	
 	def toJObject(self):
 		return {"ID":str(self.ID), "SubID":str(self.SubID), "PendingUpdates":str(self.PendingUpdates)}

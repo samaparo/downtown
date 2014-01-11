@@ -37,7 +37,7 @@ def updateSubscriptionCount():
 		for update in jsonData:
 			if(Subscription.isValidJSON(update)):
 				subscriptionID = int(update['subscription_id'])
-				matchingSub = db.session.query(Subscription).get(subscriptionID)
+				matchingSub = db.session.query(Subscription).filter(Subscription.SubID == subscriptionID).first()
 				if(not(matchingSub is None)):
 					matchingSub.PendingUpdates += 1
 					db.session.commit()
@@ -49,7 +49,7 @@ def updateSubscriptionCount():
 
 @app.route('/api/subscriptions/<int:subID>', methods=['GET'])
 def getSubscription(subID):
-	matchingSub = db.session.query(Subscription).get(subID)
+	matchingSub = db.session.query(Subscription).filter(Subscription.SubID == subID).first()
 	if(not(matchingSub is None)):
 		return jsonify(matchingSub.toJObject())
 	else:
@@ -57,7 +57,7 @@ def getSubscription(subID):
 
 @app.route('/api/subscriptions/<int:subID>', methods=['DELETE'])
 def deleteSubscription(subID):
-	matchingSub = db.session.query(Subscription).get(subID)
+	matchingSub = db.session.query(Subscription).filter(Subscription.SubID == subID).first()
 	if(not(matchingSub is None)):
 		db.session.delete(matchingSub)
 		db.session.commit()
