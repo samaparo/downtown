@@ -77,22 +77,25 @@ def fetchImages():
 	
 	maxTime = ''
 	minTime = ''
-	latestImage = db.session.query(InstaImage.timeCreated).order_by(InstaImage.timeCreated).first()
+	latestImage = db.session.query(InstaImage.timeCreated).order_by(InstaImage.timeCreated.desc()).first()
 	if(not(latestImage is None)):
-		minTime = calendar.timegm(latestImage.timeCreated.utctimetuple())
+		minTime = calendar.timegm(latestImage.timeCreated.utctimetuple()) + 30
 	
 	newRequest = requests.get('https://api.instagram.com/v1/media/search?lat='+str(latitude)+'&lng='+str(longitude)+'&client_id='+clientID+'&min_timestamp='+str(minTime))
 	requestData = json.loads(newRequest.text)
 	
-	numberOfNewImages = 0
-	#if(requestData and 'data' in requestData):
-	#	for each img in data:
-			
-			
-	
-	#newDate = (datetime.strptime('02/01/2014','%m/%d/%Y'))
-	#newImage = InstaImage(33333, newDate, "", "", "", "", 666)
-	#db.session.add(newImage)
-	#db.session.commit()
-	#return jsonify({"minTime":str(minTime)})
-	return jsonify(requestData)
+	newImageJSON = []
+	if(requestData and 'data' in requestData):
+		for img in requestData['data']:
+			instaID = img['id']
+			timeCreated = datetime.utcfromtimestamp(int(img['created_time']))
+			linkURL = img['link']
+			captionText =  '' if img['caption'] is None else img['caption']['text']
+			mainImageURL = img['images']['standard_resolution']['url']
+			thumbImageURL = img['images']['low_resolution']['url']
+			creator = int(img['user']['id'])
+			newImage = InstaImage(instaID, timeCreated, linkURL, captionText, mainImageURL, thumbImageURL, creator)
+			newImageJSON.append(newImage.toJObject())
+			db.session.add(newImage)
+		db.session.commit()
+	return jsonify({'CREATED_IMAGES':newImageJSON})

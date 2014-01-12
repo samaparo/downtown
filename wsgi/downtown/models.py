@@ -8,7 +8,7 @@ Base = declarative_base()
 class InstaImage(Base):
 	__tablename__ = 'InstaImage'
 	ID = Column(Integer, primary_key = True)
-	instaID = Column(Integer)
+	instaID = Column(String(128))
 	timeCreated = Column(DateTime)
 	linkURL = Column(String(256))
 	captionText = Column(String(1024))
@@ -16,6 +16,9 @@ class InstaImage(Base):
 	thumbnailURL = Column(String(256))
 	creatorID = Column(Integer)
 	
+	def toJObject(self):
+		return {'ID': str(self.instaID), 'TIME_CREATED':self.timeCreated.strftime('%m/%d/%Y %H:%M:%S'), 'LINK':self.linkURL,'CAPTION':self.captionText,'IMAGE_URL':self.imageURL, 'THUMB_URL':self.thumbnailURL, 'CREATOR':str(self.creatorID)}
+		
 	def __init__(self, instaID, timeCreated, linkURL, captionText, imageURL, thumbnailURL, creatorID):
 		self.instaID = instaID
 		self.timeCreated = timeCreated
