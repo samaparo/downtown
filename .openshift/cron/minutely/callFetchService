@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -K >> ${OPENSHIFT_PYTHON_LOG_DIR}/requestLog.log http://downtown-mirthquakes.rhcloud.com/api/fetch/
