@@ -75,11 +75,10 @@ def fetchImages():
 	latitude = 30.693365
 	longitude = -88.045399
 	
-	maxTime = ''
-	minTime = ''
+	minTime = 0
 	latestImage = db.session.query(InstaImage.timeCreated).order_by(InstaImage.timeCreated.desc()).first()
 	if(not(latestImage is None)):
-		minTime = calendar.timegm(latestImage.timeCreated.utctimetuple()) + 30
+		minTime = calendar.timegm(latestImage.timeCreated.utctimetuple()) + 1
 	
 	newRequest = requests.get('https://api.instagram.com/v1/media/search?lat='+str(latitude)+'&lng='+str(longitude)+'&client_id='+clientID+'&min_timestamp='+str(minTime))
 	requestData = json.loads(newRequest.text)
@@ -95,7 +94,11 @@ def fetchImages():
 			thumbImageURL = img['images']['low_resolution']['url']
 			creator = int(img['user']['id'])
 			newImage = InstaImage(instaID, timeCreated, linkURL, captionText, mainImageURL, thumbImageURL, creator)
-			newImageJSON.append(newImage.toJObject())
-			db.session.add(newImage)
-		db.session.commit()
-	return jsonify({'CREATED_IMAGES':newImageJSON})
+			try:
+				db.session.add(newImage)
+				db.session.commit()	
+				newImageJSON.append(newImage.toJObject())
+			except:
+				pass
+			
+	return jsonify({'MIN_TIME':datetime.utcfromtimestamp(minTime),'CREATED_IMAGES':newImageJSON})

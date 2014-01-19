@@ -8,7 +8,7 @@ Base = declarative_base()
 class InstaImage(Base):
 	__tablename__ = 'InstaImage'
 	ID = Column(Integer, primary_key = True)
-	instaID = Column(String(128))
+	instaID = Column(String(128), unique=True)
 	timeCreated = Column(DateTime)
 	linkURL = Column(String(256))
 	captionText = Column(String(1024))
