@@ -18,10 +18,23 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 db.Model = Base
 
+#--- Static Handlers ---
 @app.route('/', methods=['GET'])
 def renderIndex(): 
-	return render_template('index.html')
+	pageOfImages = db.session.query(InstaImage).order_by(InstaImage.timeCreated.desc()).all()
+	return render_template('index.html', images=pageOfImages)
 
+#--- App Endpoints ---
+@app.route('/api/images/', methods=['GET'])
+def getLatestImages():
+	pass
+
+@app.route('/api/images/<int:imageID>', methods=['GET'])
+def getSingleImage(imageID):
+	pass
+
+
+#--- Subscription Endpoints (not used yet) ---
 @app.route('/api/subscriptions/', methods=['GET'])
 def returnSecretCode():
 	secretCodeArg = 'hub.challenge'
@@ -66,7 +79,7 @@ def deleteSubscription(subID):
 	else:
 		abort(404)
 	
-
+#--- Fetch Endpoint (called by cron job) --- 
 @app.route('/api/fetch/', methods=['GET'])
 def fetchImages(): 
 	#CLIENT ID	edd27e4ca4d440949716ff2938980a79
