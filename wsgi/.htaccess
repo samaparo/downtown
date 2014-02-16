@@ -1,2 +1,2 @@
 RewriteEngine on 
-RewriteRule ^application/media/(.+)$ /downtown/static/$1 [L]
+RewriteRule ^app/media/(.+)$ /downtown/static/$1 [L]
