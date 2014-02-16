@@ -10,8 +10,12 @@ import os
 # Get the current working directory to place sched.db during development.
 # In production, use absolute paths or a database management system.
 PWD = os.path.abspath(os.curdir)
+DATA_DIR = ''
+try:
+	DATA_DIR = os.environ['OPENSHIFT_DATA_DIR']
+except:
+	DATA_DIR = os.path.abspath(os.path.dirname(__file__))
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(DATA_DIR, 'app.db')
 
 DEBUG = True

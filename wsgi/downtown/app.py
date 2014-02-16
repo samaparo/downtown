@@ -18,7 +18,7 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 db.Model = Base
 
-pageSize = 11
+pageSize = 15
 #--- Static Handlers ---
 @app.route('/', methods=['GET'])
 def renderIndex(): 
