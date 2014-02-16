@@ -18,20 +18,25 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 db.Model = Base
 
+pageSize = 11
 #--- Static Handlers ---
 @app.route('/', methods=['GET'])
 def renderIndex(): 
-	pageOfImages = db.session.query(InstaImage).order_by(InstaImage.timeCreated.desc()).all()
+	pageOfImages = db.session.query(InstaImage).order_by(InstaImage.timeCreated.desc()).limit(pageSize)
 	return render_template('index.html', images=pageOfImages)
 
 #--- App Endpoints ---
-@app.route('/api/images/', methods=['GET'])
-def getLatestImages():
-	pass
-
-@app.route('/api/images/<int:imageID>', methods=['GET'])
-def getSingleImage(imageID):
-	pass
+@app.route('/api/images/page/<int:page>', methods=['GET'])
+def getLatestImages(page):
+	pageOffset = 0
+	if page:
+		pageOffset = page
+	pageOfImages = db.session.query(InstaImage).order_by(InstaImage.timeCreated.desc()).offset(pageSize*pageOffset).limit(pageSize)
+	
+	imageJObjects = []
+	for img in pageOfImages:
+		imageJObjects.append(img.toJObject())
+	return jsonify({'IMAGES':imageJObjects})
 
 
 #--- Subscription Endpoints (not used yet) ---
