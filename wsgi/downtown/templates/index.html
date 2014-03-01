@@ -2,12 +2,26 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Downtown Mobile Instagram</title>
+		<title>Downtown Mobtown</title>
+		<link href="/static/css/base.css" type="text/css" rel="stylesheet" />
+		<link href="/static/css/skeleton.css" type="text/css" rel="stylesheet" />
+		<link href="/static/css/layout.css" type="text/css" rel="stylesheet" />
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
-		{% for image in images %}
-			<img src='{{image.thumbnailURL}}' />
-		{% endfor %}
+		
+		<header>
+			<h1>Downtown Mobtown</h1>
+			<span>A live <a href="">Instagram</a> feed from downtown Mobile, Alabama.</span>
+		</header>
+		<div id="imageContainer" class="container">
+			
+			{% for image in images %}
+				<div class="image one-third column clickable">
+					<img src='{{image.thumbnailURL}}' />
+				</div>
+			{% endfor %}
+		</div>
 	</body>
 </html>
