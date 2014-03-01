@@ -1,2 +1,0 @@
-RewriteEngine on 
-RewriteRule ^app/media/(.+)$ /downtown/static/$1 [L]

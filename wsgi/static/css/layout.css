@@ -23,9 +23,16 @@ body {
 }
 
 header {
+	width: 500px;
+	margin:0px auto;
+	text-align:center;
 }
 	header img{
-	
+		width:300px;
+		height: auto;
+	}
+	header span {
+		color:white;
 	}
 
 #imageContainer {
