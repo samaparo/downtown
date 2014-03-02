@@ -23,7 +23,7 @@ body {
 }
 
 header {
-	width: 500px;
+	width: 420px;
 	margin:0px auto;
 	text-align:center;
 }
@@ -39,19 +39,70 @@ header {
 }
 	#imageContainer .image{
 		position:relative;
-		
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
-		#imageContainer .image img {
-			width:100%;
-			height: auto;
-			padding: 5px;
-			background-color:#E8E8E8;
-			border:solid 1px black;
-			-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-			-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-			box-sizing: border-box;         /* Opera/IE 8+ */
+		#imageContainer .image a{
+			position:relative;
+			display:block;
+			z-index: 1;
+			
 		}
+			#imageContainer .image a img {
+				width:100%;
+				height: auto;
+				padding: 5px;
+				background-color:#E8E8E8;
+				border:solid 1px black;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				vertical-align:top;
+			}
+		#imageContainer .image > div {
+			display:none;
+			position:absolute;
+			bottom:0px;
+			left:0px;
+			z-index: 2;
+			height: 100%;
+			width: 100%;
+		}
+		#imageContainer .image:hover > div {
+			display:block;
+			overflow:hidden;
+		}
+			#imageContainer .image > div div {
+				position:absolute;
+				z-index: 3;
+				height: 100%;
+				width: 100%;
+				opacity: .8;
+				background-color: #000000;
+			}
+			#imageContainer .image > div > span {
+				position:relative;
+				z-index: 4;
+				display:block;
+			}
+			#imageContainer .image > div > .caption {
+				color:white;
+				padding: 10px 0px 0px 10px;
+			}
+			#imageContainer .image > div > .timestamp {
+				color:white;
+				font-size:90%;
+				font-style:italic;
+				position:absolute; 
+				bottom: 0px;
+				right: 10px;
+			}
+			#imageContainer .image > div > a {
+				position:relative;
+				z-index: 4;
+				color:white;
+				padding: 5px 0px 0px 10px;
+			}
+			
 	
 
 /* #Media Queries
