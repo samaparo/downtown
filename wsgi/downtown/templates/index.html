@@ -11,26 +11,29 @@
 	</head>
 	<body>
 		
-		
-		<div id="imageContainer" class="container">
-			<header>
-				<img src='/static/images/logo.png' />
-				<div class="clear"></div>
-				<span>A live <a href="">Instagram</a> feed from downtown Mobile, Alabama.</span>
-			</header>
+		<header class="container">
+			<img src='/static/images/logo.png' />
+			<div class="clear"></div>
+			<span>A live <a href="http://www.instagram.com" target="_blank">Instagram</a> feed from downtown Mobile, Alabama.</span>
+		</header>
+		<section id="imageContainer" class="container">
+			
 			{% for image in images %}
 				<div class="image one-third column">
-					<a href="http://www.instagram.com" target="_blank">
+					<a href="{{image.linkURL}}" target="_blank">
 						<img src='{{image.thumbnailURL}}' />
 					</a>
 					<div>
 						<div></div>
-						<span class="timestamp">01/01/2014 9:00AM</span>
-						<span class="caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse blandit vestibulum nisl, ut pretium lectus luctus nec. Donec eget turpis non elit aliquam placerat eget ut lectus. </span>
-						<a href="http://www.instagram.com" target="_blank">View on Instagram</a>
+						<span class="timestamp">{{image.timeCreated}}</span>
+						<span class="caption">{{image.captionText}}</span>
+						<a href="{{image.linkURL}}" target="_blank">View on Instagram</a>
 					</div>
 				</div>
 			{% endfor %}
-		</div>
+		</section>
+		<footer class="container">
+			<span>Made by <a href="http://www.twitter.com/mirthquakes" target="_blank">@mirthquakes</a> </span>
+		</footer>
 	</body>
 </html>

@@ -19,12 +19,11 @@
 ================================================== */
 
 body {
-	background-color:#3A2945;
+	background:url('/static/images/stardust.png') 0px 0px repeat;
+	padding-top: 15px;
 }
 
 header {
-	width: 420px;
-	margin:0px auto;
 	text-align:center;
 }
 	header img{
@@ -33,13 +32,17 @@ header {
 	}
 	header span {
 		color:white;
+		font-size: 130%;
+	}
+	header a, header a:visited {
+		color:white;
 	}
 
 #imageContainer {
 }
 	#imageContainer .image{
 		position:relative;
-		margin-bottom: 10px;
+		margin-top: 10px;
 	}
 		#imageContainer .image a{
 			position:relative;
@@ -102,8 +105,15 @@ header {
 				color:white;
 				padding: 5px 0px 0px 10px;
 			}
-			
-	
+footer {
+	text-align:center;
+}
+	footer span, footer a, footer a:visited {
+		color:white;
+		display:inline-block;
+		font-weight:bold;
+		padding: 5px 0px 5px 0px;
+	}
 
 /* #Media Queries
 ================================================== */
