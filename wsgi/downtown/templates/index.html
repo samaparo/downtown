@@ -43,17 +43,19 @@
 		</footer>
 		
 		<script id="template_image" type="text/template">
+		{% raw %}
 			<div class="image one-third column">
-				<a href="{{linkURL}}" target="_blank">
-					<img src='{{thumbnailURL}}' />
+				<a href="{{{LINK}}}" target="_blank">
+					<img src='{{{THUMB_URL}}}' />
 				</a>
 				<div>
 					<div></div>
-					<span class="timestamp">{{timeCreated}}</span>
-					<span class="caption">{{captionText}}</span>
-					<a href="{{linkURL}}" target="_blank">View on Instagram</a>
+					<span class="timestamp">{{{TIME_CREATED}}}</span>
+					<span class="caption">{{{CAPTION}}}</span>
+					<a href="{{{LINK}}}" target="_blank">View on Instagram</a>
 				</div>
 			</div>
+		{% endraw %}
 		</script>
 		<script src="/static/js/mustache.js"></script>
 		<script src="/static/js/jquery.min.js"></script>
