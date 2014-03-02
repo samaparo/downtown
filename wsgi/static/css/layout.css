@@ -105,13 +105,13 @@ header {
 				color:white;
 				padding: 5px 0px 0px 10px;
 			}
-	#imageContainer #buttonWrapper{
-		text-align:center;
-		margin-top: 15px;
+#buttonWrapper{
+	text-align:center;
+	margin-top: 15px;
+}
+	#buttonWrapper button {
+		font-size:180%;
 	}
-		#imageContainer #buttonWrapper button {
-			font-size:180%;
-		}
 footer {
 	text-align:center;
 }
