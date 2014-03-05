@@ -23,7 +23,10 @@ pageSize = 15
 @app.route('/', methods=['GET'])
 def renderIndex(): 
 	pageOfImages = db.session.query(InstaImage).order_by(InstaImage.timeCreated.desc()).limit(pageSize)
-	return render_template('index.html', images=pageOfImages)
+	imageJObjects = []
+	for img in pageOfImages:
+		imageJObjects.append(img.toJObject())
+	return render_template('index.html', images=imageJObjects)
 
 #--- App Endpoints ---
 @app.route('/api/images/page/<int:page>', methods=['GET'])

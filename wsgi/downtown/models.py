@@ -2,7 +2,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy import Boolean, DateTime, Integer, String
-
+from datetime import timedelta
 Base = declarative_base()
 
 class InstaImage(Base):
@@ -17,7 +17,8 @@ class InstaImage(Base):
 	creatorID = Column(Integer)
 	
 	def toJObject(self):
-		return {'ID': str(self.instaID), 'TIME_CREATED':self.timeCreated.strftime('%m/%d/%Y %H:%M:%S'), 'LINK':self.linkURL,'CAPTION':self.captionText,'IMAGE_URL':self.imageURL, 'THUMB_URL':self.thumbnailURL, 'CREATOR':str(self.creatorID)}
+		timeCreatedCentral = self.timeCreated - timedelta(hours=6)
+		return {'ID': str(self.instaID), 'TIME_CREATED':timeCreatedCentral.strftime('%I:%M %p on %m/%d/%Y '), 'LINK':self.linkURL,'CAPTION':self.captionText,'IMAGE_URL':self.imageURL, 'THUMB_URL':self.thumbnailURL, 'CREATOR':str(self.creatorID)}
 		
 	def __init__(self, instaID, timeCreated, linkURL, captionText, imageURL, thumbnailURL, creatorID):
 		self.instaID = instaID

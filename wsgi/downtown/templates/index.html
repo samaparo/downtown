@@ -20,14 +20,14 @@
 			
 			{% for image in images %}
 				<div class="image one-third column">
-					<a href="{{image.linkURL}}" target="_blank">
-						<img src='{{image.thumbnailURL}}' />
+					<a href="{{image['LINK']}}" target="_blank">
+						<img src="{{image['THUMB_URL']}}" />
 					</a>
 					<div>
 						<div></div>
-						<span class="timestamp">{{image.timeCreated}}</span>
-						<span class="caption">{{image.captionText}}</span>
-						<a href="{{image.linkURL}}" target="_blank">View on Instagram</a>
+						<span class="timestamp">{{image['TIME_CREATED']}}</span>
+						<span class="caption">{{image['CAPTION']}}</span>
+						<a href="{{image['LINK']}}" target="_blank">View on Instagram</a>
 					</div>
 				</div>
 			{% endfor %}
