@@ -112,6 +112,12 @@ header {
 	#buttonWrapper button {
 		font-size:180%;
 	}
+	#buttonWrapper #loading {
+		display:none;
+		font-size: 180%;
+		color:white;
+		font-weight:bold;
+	}
 footer {
 	text-align:center;
 }

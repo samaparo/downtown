@@ -8,6 +8,11 @@ var currentPage = 0;
 	imageTemplate = $("#template_image").html();
 	
 	$("#buttonWrapper button").click(function () {
+		var $button = $(this);
+		var $loading = $("#buttonWrapper #loading");
+		$button.hide();
+		$loading.show();
+		
 		currentPage += 1;
 		$.ajax({
 			url: "/api/images/page/" + currentPage,
@@ -20,12 +25,15 @@ var currentPage = 0;
 					}
 				}
 				else{
-					$("#buttonWrapper button").hide();
+					$button.hide();
 				}
 				$("#imageContainer").append(imageHTML);
 				
+				$button.show();
+				$loading.hide();
 			}
 		});
+		
 		
 		var buttonText;
 		switch (currentPage % 4) {
@@ -42,7 +50,7 @@ var currentPage = 0;
 			buttonText = "More more more...";
 			break;
 		}
-		$("#buttonWrapper button").text(buttonText);
+		$button.text(buttonText);
 		
 	});
 	
