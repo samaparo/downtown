@@ -54,4 +54,8 @@ var currentPage = 0;
 		
 	});
 	
+	$("img").error(function(){
+		$(this).attr("src", "/static/images/missing.jpg");
+	});
+	
 }());
