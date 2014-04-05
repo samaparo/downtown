@@ -2,3 +2,6 @@
 *.pyc
 *.pyo
 *.db
+package.json
+node_modules
+Gruntfile.js
