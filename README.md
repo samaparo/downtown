@@ -1,3 +1,11 @@
-The OpenShift `python` cartridge documentation can be found at:
+# DowntownMobtown
+##### www.downtownmobtown.com
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-python/README.md
+This is an app that displays a *live feed of all Instagram photos taken within a 2km radius of downtown Mobile, Alabama. 
+
+Back End: Python, Flask
+
+Front End: Plain old javascript, and some jQuery
+
+* Feed is updated every minute via a CRON job
+
